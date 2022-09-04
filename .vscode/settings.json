@@ -1,0 +1,6 @@
+{
+  "hardhat.telemetry": false,
+  "explorer.confirmDelete": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
