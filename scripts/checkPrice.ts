@@ -1,33 +1,28 @@
+import { BigNumber } from "ethers"
 import { ethers } from "hardhat"
-import * as dotenv from "dotenv"
-dotenv.config({ path: __dirname + "/.env" })
+import * as constant from "../constant"
+import { Price } from "../typechain-types"
 
 async function main() {
-  const PriceABI = [
-    {
-      inputs: [],
-      stateMutability: "nonpayable",
-      type: "constructor"
-    },
-    {
-      inputs: [],
-      name: "getLatestPrice",
-      outputs: [
-        {
-          internalType: "int256",
-          name: "",
-          type: "int256"
-        }
-      ],
-      stateMutability: "view",
-      type: "function"
-    }
-  ]
-
   const goerli = ethers.getDefaultProvider("goerli")
-  const priceAddress = "0x6D8E001A204e9c96c0fFD658Ce507C87193b5a2D"
-  const priceContract = new ethers.Contract(priceAddress, PriceABI, goerli)
-  console.log(await priceContract.getLatestPrice())
+  const priceContract: Price = new ethers.Contract(
+    constant.PRICE_ADDR,
+    constant.PRICE_ABI,
+    goerli
+  ) as Price
+
+  const ethUsd = formatNumber(await priceContract.getEthUsd())
+  console.log("ETH/USD", ethUsd)
+
+  const daiUsd = formatNumber(await priceContract.getDaiUsd())
+  console.log("DAI/USD", daiUsd)
+
+  const usdcUsd = formatNumber(await priceContract.getUsdcUsd())
+  console.log("USDC/USD", usdcUsd)
+}
+
+function formatNumber(input: BigNumber): number {
+  return input.toNumber() / 10 ** 8
 }
 
 main()
