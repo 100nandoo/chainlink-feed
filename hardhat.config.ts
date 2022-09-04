@@ -1,6 +1,6 @@
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-import * as constant from './constant';
+import { HardhatUserConfig } from "hardhat/config"
+import "@nomicfoundation/hardhat-toolbox"
+import * as constant from "./constant"
 
 const config: HardhatUserConfig = {
   solidity: "0.8.9",
@@ -13,6 +13,6 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: constant.ETHERSCAN_KEY
   }
-};
+}
 
-export default config;
+export default config
